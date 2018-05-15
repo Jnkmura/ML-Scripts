@@ -1,8 +1,6 @@
 import numpy as np 
 import pandas as pd 
 import matplotlib.pyplot as plt
-import os
-
 
 class LogisticRegressionNumpy(object):
 
@@ -101,14 +99,3 @@ class LogisticRegressionNumpy(object):
         y_test =  y_test.reshape(y_test.shape[0],1)
         equality = list(ypred == y_test)
         return equality.count(True)/(equality.count(True) + equality.count(False))
-        
-
-
-    
-
-
-
-
-
-
-
