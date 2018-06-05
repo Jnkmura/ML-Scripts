@@ -7,7 +7,6 @@ class LogisticRegressionNumpy(object):
     # Logistic Regression using only python numpy library
     # alpha (learning rate) is a constant set to use in grandient descent step
     # We should separate the data into training and test set
-    # Next steps... Batch Gradient Descent and momentum
 
     def __init__ (self, alpha = 0.0001):
 
