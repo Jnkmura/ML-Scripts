@@ -69,16 +69,29 @@ class LogisticRegressionNumpy(object):
 
         return theta
 
-    def gradient_descent(self, X, Y, theta, interations=500):
+    def gradient_descent(self, X, Y, theta, interations=500, is_batch=0, batch_size = 20):
 
         loss_history = []
         Y = Y.reshape(Y.shape[0],1)
 
-        for i in range(interations):
+        if is_batch == 0:
 
-            theta = self.gradient(X, Y, theta)
-            loss = self.loss(X, Y, theta)   
-            loss_history.append(loss)
+            for i in range(interations):
+
+                theta = self.gradient(X, Y, theta)
+                loss = self.loss(X, Y, theta)   
+                loss_history.append(loss)
+        
+        else:
+
+            for i in range(interations):
+                
+                ind = np.random.randint(X.shape[0], size = batch_size)
+                batch_X = X[ind,:]
+                batch_Y = Y[ind]
+                theta = self.gradient(batch_X, batch_Y, theta)
+                loss = self.loss(batch_X,batch_Y,theta)
+                loss_history.append(loss)
 
         
         fig = plt.figure(figsize=(10,5))
