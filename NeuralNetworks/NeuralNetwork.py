@@ -23,19 +23,19 @@ class NeuralNetwork:
         fan_out = self.layers[layer]['units']
         return fan_in, fan_out
 
-    def get_initializer(type = 'glorot_uniform', fan_in = None, fan_out = None):
-        if type = 'glorot_uniform':
+    def get_initializer(self, type = 'glorot_uniform', fan_in = None, fan_out = None):
+        if type == 'glorot_uniform':
             mu = 0
             stddev = np.sqrt(2 / (fan_in + fan_out))
             return mu, stddev
 
     def initialize_weights(self):
         layers = len(self.layers)
-        for i range(1, layers):
+        for i in range(1, layers):
             fan_in, fan_out = self.get_fan(i)
-            mu, stddev = get_initializer(fan_in = fan_in, fan_out = fan_out)
+            mu, stddev = self.get_initializer(fan_in = fan_in, fan_out = fan_out)
 
-            self.weights['W' + str(i)] = np.random.normal(0, stddev, size = (fan_out, fan_in))
+            self.weights['W' + str(i)] = np.random.normal(mu, stddev, size = (fan_out, fan_in))
             self.weights['b' + str(i)] = np.zeros((fan_out, 1))
 
     def activate(self, Z, activation):
@@ -50,7 +50,7 @@ class NeuralNetwork:
             Wi = self.weights['W' + str(l)]
             bi = self.weights['b' + str(l)]
             Zi = np.matmul(Ai, Wi.T) + bi
-            Ai = self.activate(Z, activation)
+            Ai = self.activate(Zi, activation)
 
         return Ai
 
